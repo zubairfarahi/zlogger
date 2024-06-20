@@ -71,7 +71,7 @@ def custom_test():
         logger.with_additional_data({
             "module_name": "test desc",
             "UUID": "2423-3544-3s3d-gr32"
-        }).info(str("file not found"))
+        }).exception(str("file not found"))
         
         
         logger.with_additional_data({
@@ -138,6 +138,11 @@ def custom_test():
             "path": "/home/user/file.txt",
             "UUID": "1111-3544-3s3d-gr32"
         }).error(str("file is corrupted"))
+        
+        try:
+            x = 1/0
+        except Exception as e:
+            logger.with_request_id("23432-324-324234").exception(e)
 
 if __name__ == '__main__':
     # if you want to test without threads, uncomment the custom_test() function and comment unittest.main()

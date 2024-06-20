@@ -8,19 +8,19 @@ FATAL = 'FATA'
 
 # logging configuration parameters
 class LogConfig(Enum):
-    LOG = 'log'
-    LEVEL = 'level'
-    LOG_STDOUT = 'log_stdout'
-    LOG_STDERR = 'log_stderr'
-    LOG_FILE = 'log_file'
-    ENABLED = 'enabled'
-    FILE_NAME = 'filename'
-    FILE_EXTENSION = 'file_extension'
-    LOG_PATH = 'log_path'
-    MAX_FILE_SIZE = 'max_file_size'
-    MAX_AGE_DAYS = 'max_age_days'
-    MAX_STORAGE_SIZE = 'max_storage_size'
-    ARCHIVE_PATH = 'archive_path'
+    LOG = 'LOG'
+    LEVEL = 'Level'
+    LOG_STDOUT = 'LogStdout'
+    LOG_STDERR = 'LogStderr'
+    LOG_FILE = 'LOG_FILE'
+    ENABLED = 'Enabled'
+    FILE_NAME = 'FileName'
+    FILE_EXTENSION = 'FileExtension'
+    LOG_PATH = 'LogPath'
+    MAX_FILE_SIZE = 'MaxFileSize'
+    MAX_AGE_DAYS = 'MaxAgeDays'
+    MAX_STORAGE_SIZE = 'MaxStorageSize'
+    ARCHIVE_PATH = 'ArchivePath'
     LOG_FILE_PATH = 'log_file_path'
     REQUEST_ID = 'request_id'
     MODULE_NAME = 'module_name'
@@ -29,7 +29,7 @@ class LogConfig(Enum):
     LINE_NO = 'line_no'
     ASCTIME1 = 'asctime1'
     DATA = 'data'
-
+    
 class ExtendedEnum(Enum):
     @classmethod
     def list(cls):
@@ -45,6 +45,12 @@ class LogLevel(ExtendedEnum):
     REJECT = 'REJECT'
     FATAL = 'FATAL'
 
+# Define custom log levels
+class CustomLogLevel(Enum):
+    SUCCESS_LEVEL = 15
+    REJECT_LEVEL = 25
+    FATAL_LEVEL = 50
+    
 
 # error codes and their descriptions
 ERROR_DESC = {

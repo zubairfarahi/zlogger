@@ -3,21 +3,17 @@ import os
 import inspect
 from functools import wraps
 import sys
-from custom_formatter import CustomFormatter
-from custom_file_rotater import CustomFileRotator
+from .custom_formatter import CustomFormatter
+from .custom_file_rotater import CustomFileRotator
 import time
-from constants import *
+from .constants import *
 import configparser
 
-# Define custom log levels
-SUCCESS_LEVEL = 15
-REJECT_LEVEL = 25
-FATAL_LEVEL = 50
 
 # Add custom log levels to the logging module
-logging.addLevelName(SUCCESS_LEVEL, SUCCESS)
-logging.addLevelName(REJECT_LEVEL, REJECT)
-logging.addLevelName(FATAL_LEVEL, FATAL)
+logging.addLevelName(CustomLogLevel.SUCCESS_LEVEL.value, SUCCESS)
+logging.addLevelName(CustomLogLevel.REJECT_LEVEL.value, REJECT)
+logging.addLevelName(CustomLogLevel.FATAL_LEVEL.value, FATAL)
 
 class ZLogger(logging.Logger):
     def __init__(self, name, config, level=logging.INFO):
@@ -237,11 +233,10 @@ class ZLogger(logging.Logger):
         handlers (list): A list of logging handlers.
         """
         
-        self.logger = logging.getLogger(self.name)
-        self.logger.setLevel(logging.getLevelName(log_level))
+        self.setLevel(log_level)
         for handler in handlers:
-            self.logger.addHandler(handler)
-
+            self.addHandler(handler)
+        
     def with_request_id(self, request_id):
         """
         Add request ID to the logger's extra context.
@@ -328,34 +323,34 @@ class ZLogger(logging.Logger):
     @log_decorator
     def fatal(self, message, *args, **kwargs):
         """Log a message with FATAL level."""
-        self.logger.log(FATAL_LEVEL, message, *args, **kwargs)
+        self.log(CustomLogLevel.FATAL_LEVEL.value, message, *args, **kwargs)
 
     @log_decorator
     def reject(self, message, *args, **kwargs):
         """Log a message with REJECT level."""
-        self.logger.log(REJECT_LEVEL, message, *args, **kwargs)
+        self.log(CustomLogLevel.REJECT_LEVEL.value, message, *args, **kwargs)
 
     @log_decorator
     def success(self, message, *args, **kwargs):
         """Log a message with SUCCESS level."""
-        self.logger.log(SUCCESS_LEVEL, message, *args, **kwargs)
+        self.log(CustomLogLevel.SUCCESS_LEVEL.value, message, *args, **kwargs)
 
     @log_decorator
     def debug(self, message, *args, **kwargs):
         """Log a message with DEBUG level."""
-        self.logger.debug(message, *args, **kwargs)
+        self.log(logging.DEBUG, message, *args, **kwargs)
 
     @log_decorator
     def info(self, message, *args, **kwargs):
         """Log a message with INFO level."""
-        self.logger.info(message, *args, **kwargs)
+        self.log(logging.INFO, message, *args, **kwargs)
 
     @log_decorator
     def warning(self, message, *args, **kwargs):
         """Log a message with WARNING level."""
-        self.logger.warning(message, *args, **kwargs)
+        self.log(logging.WARNING, message, *args, **kwargs)
 
     @log_decorator
     def error(self, message, *args, **kwargs):
         """Log a message with ERROR level."""
-        self.logger.error(message, *args, **kwargs)
+        self.log(logging.ERROR, message, *args, **kwargs)
