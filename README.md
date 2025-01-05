@@ -6,7 +6,7 @@ Zlogger is a  customizable logging library for Python applications. It provides 
 ## Installation
 To install Zlogger, you can use pip:
 ```python
-pip install git+ssh://git@git.ghpcard.local:122/dbelii/zlogger.git
+pip install git@github.com:zubairfarahi/zlogger.git
 ```
 ## Usage
 To use Zlogger in your Python application, follow these steps:
